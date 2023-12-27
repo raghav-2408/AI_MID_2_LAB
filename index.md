@@ -73,9 +73,9 @@ while not game:
     print(li[lives])
 ``` 
 
-#Tic Tac Toe
+# Tic Tac Toe
 
-'''python
+```python
 import os
 import time
 
@@ -158,7 +158,6 @@ while Game == Running:
         board[choice] = Mark
         player += 1
         CheckWin()
-
     os.system('cls')
     DrawBoard()
     if Game == Draw:
@@ -170,7 +169,8 @@ while Game == Running:
         else:
             print("Player 2 Won")
 
-'''
+```
+
 
 # 8 Queens
 
