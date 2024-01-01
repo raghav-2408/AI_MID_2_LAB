@@ -1,7 +1,7 @@
-# Mercury Tour
+### Week 2 : Mercury Tour
 
 `action.moveToElement(we).build().perform();`
-
+``
 ```java
 package microProject;
 public class practice {
@@ -45,7 +45,8 @@ public class practice {
 
 }
 ```
-# Facebook
+
+### Week 3 : Facebook
 
 `Select s1 = new Select(wb.findElement(By.name("birthday_month")));
 		s1.selectByVisibleText("Aug");`
@@ -106,47 +107,59 @@ public class practice {
 }
 ```
 
-# Myntra 
-
-#### As inspect wont work, we use the following :
-<br>
-
-`Cntrl + Shift + I : Inspect`
-<br>
-
-`Cntrl + Shift + C : To Select an element`
-
+### Week 4 : Pops out an alert message (AXIS Bank) Banking page
 ```java
-package microProject;
-public class practice {
+public class mid1 {
+	public static void main(String[] args) throws InterruptedException {
+		HashMap<String, Object> prefs=new HashMap<String, Object>();
+		prefs.put("profile.default_content_setting_values.notifications",0);
+		ChromeOptions options=new ChromeOptions();
+		options.setExperimentalOption("prefs", prefs);
 
-	public static void main(String[] args)throws InterruptedException {
-		System.setProperty("webdriver.chrome.driver", "path");
-		WebDriver wb = new ChromeDriver();
-		wb.manage().window().maximize();
-		
-		wb.get("https://www.myntra.com/?utm_source=dms_google&utm_medium=searchbrand_cpc&utm_campaign=dms_google_searchbrand_cpc_Search_Brand_Myntra_Brand_India_BM_TROAS_SOK_New&gclid=Cj0KCQiA7aSsBhCiARIsALFvovwnyDJuvJi4pw9Dt1DtGMnPtM6YH8l_5alTydbwm3lZ70Nf788MneUaAi3UEALw_wcB");
-		Thread.sleep(1000);
-		
-		WebElement we = wb.findElement(By.className("desktop-userTitle"));
-		we.click();
-		Thread.sleep(1000);
-		
-		WebElement we1 = wb.findElement(By.className("desktop-linkButton"));
-		we1.click();
-		Thread.sleep(1000);
-		
-		WebElement we2 = wb.findElement(By.className("mobileNumberInput"));
-		we2.sendKeys("9398545541");
-		Thread.sleep(1000);
-		
-		WebElement we3 = wb.findElement(By.className("submitBottomOption"));
-		we3.click();	
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\gadap\\OneDrive\\Desktop\\Externals\\chromedriver-win64\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver(options);
+		driver.manage().window().maximize();
+
+		driver.get("https://www.axisbank.com/");
+		WebElement pop=driver.findElement(By.xpath("/html/body/div[1]/div[1]/div/span"));
+		pop.click();
+
+//		WebElement we2 = driver.findElement(By.id("nvpush_cross"));
+//		we2.click();
 	}
 }
 ```
+### Week 5 : Search result section on CMRIT Website. 
+`Use h3`
+```java
+public class mid1 {
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "<paste driver path here >");
+		WebDriver wb = new ChromeDriver();
+		wb.manage().window().maximize();
+		wb.get("https://www.google.com/");
 
-# AJIO
+		WebElement we = wb.findElement(By.name("q"));
+		we.sendKeys("cmrit bees");
+		we.sendKeys(Keys.ENTER);
+
+		WebElement we1 = wb.findElement(By.xpath("//h3[@class = \"LC20lb MBeuO DKV0Md\"]"));
+		we1.click();
+		Thread.sleep(1000);
+
+		WebElement we2 = wb.findElement(By.name("txtUserName"));
+		we2.sendKeys("21R01A67E2P");
+		we2.sendKeys(Keys.ENTER);
+		Thread.sleep(1000);
+
+		WebElement we3 = wb.findElement(By.name("txtPassword"));
+		we3.sendKeys("21R01A67E2P");
+		we3.sendKeys(Keys.ENTER);
+		Thread.sleep(1000);
+	}
+}
+```
+### Week 6 : AJIO
 
 `Rememeber (select Facebook)`
 ```java
@@ -161,7 +174,6 @@ Set<String> parent = wb.getWindowHandles();
 			}
 		}
 ```
-
 ```java
 package microProject;
 
@@ -206,65 +218,88 @@ public class practice {
 	}
 
 }
-
 ```
 
-# PDF from Word
-
-### Choose ()[1] -> [1] should be outside of () 
-`		WebElement we1 = wb.findElement(By.xpath("(//h3[@class = 'LC20lb MBeuO DKV0Md'])[1]"));
-`
-
-### Remember :
+### Week 7 : open Google and search CMRIT.
 ```java
-Clipboard cp = Toolkit.getDefaultToolkit().getSystemClipboard();
-		StringSelection ss = new StringSelection("Downloads\\SDE.doc");
-		Thread.sleep(1000);
-		cp.setContents(ss, null);
-```
-
-```java
-package microProject;
-
-public class practice {
-
-	public static void main(String[] args)throws InterruptedException, AWTException {
-		System.setProperty("webdriver.chrome.driver", "path");
+public class mid1 {
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "<paste driver path here >");
 		WebDriver wb = new ChromeDriver();
 		wb.manage().window().maximize();
-		wb.get("https://www.google.co.in/");
+		wb.get("https://www.google.com/");
+
 		WebElement we = wb.findElement(By.name("q"));
-		we.sendKeys("word to pdf");
-		we.submit();
-		
-		WebElement we1 = wb.findElement(By.xpath("(//h3[@class = 'LC20lb MBeuO DKV0Md'])[2]"));
-		we1.click();
-		
-		WebElement we2 = wb.findElement(By.xpath("(//span[normalize-space() = 'Choose Files'])[1]"));
-		we2.click();
-		
-		Clipboard cp = Toolkit.getDefaultToolkit().getSystemClipboard();
-		StringSelection ss = new StringSelection("Downloads\\SDE.doc");
-		Thread.sleep(1000);
-		cp.setContents(ss, null);
-		
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_V);
-		robot.keyPress(KeyEvent.VK_ENTER);
-		Thread.sleep(15000);
-		
-		WebElement we3 = wb.findElement(By.xpath("//span[text() = 'Download']"));
-		we3.click();
-}	
+		we.sendKeys("cmrit hyderabad");
+		we.sendKeys(Keys.ENTER);
+	}
 }
 ```
 
-# GMAIL 
-
+### Week 8 : download image from Google images of cmrit website.
 ```java
-
+public class mid1 {
+	public static void main(String[] args) throws InterruptedException, AWTException {
+		System.setProperty("webdriver.chrome.driver", "<paste driver path here >");
+		WebDriver wb = new ChromeDriver();
+		wb.manage().window().maximize();
+		wb.get("https://www.google.com/");
+		
+		WebElement we = wb.findElement(By.name("q"));
+		we.sendKeys("cmrit hyderabad");
+		we.sendKeys(Keys.ENTER);
+		Thread.sleep(1000);
+		
+		WebElement we1 = wb.findElement(By.xpath("//a[normalize-space() = 'Images']"));
+		we1.click();
+		Thread.sleep(1000);
+		
+		WebElement we2 = wb.findElement(By.xpath("//img[@alt = 'CMR Institute of Technology | Top Engineering College in Hyderabad']"));
+		Thread.sleep(1000);
+		
+		Actions action = new Actions(wb); // webdriver
+		action.contextClick(we2).build().perform();
+		Thread.sleep(1000);
+		
+		Robot robot = new Robot();
+		for (int i=0; i<7; i++)
+		{
+			robot.keyPress(KeyEvent.VK_DOWN);
+			Thread.sleep(1000);
+		}
+		robot.keyPress(KeyEvent.VK_ENTER);
+		Thread.sleep(2000);
+		
+		robot.keyPress(KeyEvent.VK_ENTER);
+	}
+}
 ```
+
+### Week 9 : Write test case to get number of list items in a list. 
+## (JustDial)
+```java
+public class mid1 {
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\gadap\\OneDrive\\Desktop\\Externals\\chromedriver-win64\\chromedriver.exe");
+		WebDriver wb = new ChromeDriver();
+		wb.manage().window().maximize();
+		// Paste the specified link 
+		wb.get("https://www.justdial.com/Hyderabad/Bakeries/nct-10033880");
+		Thread.sleep(1000);
+		
+		List<WebElement> list = wb.findElements(By.xpath("//h2[@class = 'input_search font14 fw400 color111']"));
+		
+		for(int i=0; i<list.size(); i++)
+		{
+			String s = list.get(i).getText();
+			System.out.println(s);
+		}
+	}
+}
+```
+
+
+### Week 10 : GMAIL 
 
 ```java
 public class exp10 {
@@ -317,3 +352,95 @@ System.setProperty("webdriver.chrome.driver", "path");
 	}
 }
 ```
+
+### Week 11 : Myntra 
+
+#### As inspect wont work, we use the following :
+<br>
+
+`Cntrl + Shift + I : Inspect`
+<br>
+
+`Cntrl + Shift + C : To Select an element`
+
+```java
+package microProject;
+public class practice {
+
+	public static void main(String[] args)throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "path");
+		WebDriver wb = new ChromeDriver();
+		wb.manage().window().maximize();
+		
+		wb.get("https://www.myntra.com/?utm_source=dms_google&utm_medium=searchbrand_cpc&utm_campaign=dms_google_searchbrand_cpc_Search_Brand_Myntra_Brand_India_BM_TROAS_SOK_New&gclid=Cj0KCQiA7aSsBhCiARIsALFvovwnyDJuvJi4pw9Dt1DtGMnPtM6YH8l_5alTydbwm3lZ70Nf788MneUaAi3UEALw_wcB");
+		Thread.sleep(1000);
+		
+		WebElement we = wb.findElement(By.className("desktop-userTitle"));
+		we.click();
+		Thread.sleep(1000);
+		
+		WebElement we1 = wb.findElement(By.className("desktop-linkButton"));
+		we1.click();
+		Thread.sleep(1000);
+		
+		WebElement we2 = wb.findElement(By.className("mobileNumberInput"));
+		we2.sendKeys("9398545541");
+		Thread.sleep(1000);
+		
+		WebElement we3 = wb.findElement(By.className("submitBottomOption"));
+		we3.click();	
+	}
+}
+```
+
+### Week 12 : PDF from Word
+
+### Choose ()[1] -> [1] should be outside of () 
+`		WebElement we1 = wb.findElement(By.xpath("(//h3[@class = 'LC20lb MBeuO DKV0Md'])[1]"));
+`
+
+### Remember :
+```java
+Clipboard cp = Toolkit.getDefaultToolkit().getSystemClipboard();
+		StringSelection ss = new StringSelection("Downloads\\SDE.doc");
+		Thread.sleep(1000);
+		cp.setContents(ss, null);
+```
+
+```java
+package microProject;
+
+public class practice {
+
+	public static void main(String[] args)throws InterruptedException, AWTException {
+		System.setProperty("webdriver.chrome.driver", "path");
+		WebDriver wb = new ChromeDriver();
+		wb.manage().window().maximize();
+		wb.get("https://www.google.co.in/");
+		WebElement we = wb.findElement(By.name("q"));
+		we.sendKeys("word to pdf");
+		we.submit();
+		
+		WebElement we1 = wb.findElement(By.xpath("(//h3[@class = 'LC20lb MBeuO DKV0Md'])[2]"));
+		we1.click();
+		
+		WebElement we2 = wb.findElement(By.xpath("(//span[normalize-space() = 'Choose Files'])[1]"));
+		we2.click();
+		
+		Clipboard cp = Toolkit.getDefaultToolkit().getSystemClipboard();
+		StringSelection ss = new StringSelection("Downloads\\SDE.doc");
+		Thread.sleep(1000);
+		cp.setContents(ss, null);
+		
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		robot.keyPress(KeyEvent.VK_V);
+		robot.keyPress(KeyEvent.VK_ENTER);
+		Thread.sleep(15000);
+		
+		WebElement we3 = wb.findElement(By.xpath("//span[text() = 'Download']"));
+		we3.click();
+}	
+}
+```
+
