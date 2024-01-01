@@ -1,3 +1,203 @@
+# BFS Traversal
+```python
+def add_node(v):
+    if v in graph:
+        print(v, "already present in the graph")
+    else:
+        graph[v] = []
+
+def add_edge(v1, v2):
+    if v1 not in graph:
+        print(v1, "is not present in the graph")
+    elif v2 not in graph:
+        print(v2, "is not present in the graph")
+    else:
+        graph[v1].append(v2)
+        graph[v2].append(v1)
+
+def bfs(node, visited, graph):
+    visited.append(node)
+    queue.append(node)
+    while queue:
+        m = queue.pop(0)
+        print(m, end = " ")
+        for i in graph[m]:
+            if i not in visited:
+                visited.append(i)
+                queue.append(i)
+
+queue = []
+visited = []
+graph = {}
+
+add_node("5")
+add_node("3")
+add_node("7")
+add_node("2")
+add_node("4")
+add_node("8")
+
+add_edge("5", "3")
+add_edge("5", "7")
+add_edge("3", "2")
+add_edge("3", "4")
+add_edge("7", "8")
+add_edge("4", "8")
+
+# print(graph)
+bfs("5", visited, graph)
+```
+
++
+
+# DFS Traversal
+
+```python
+def add_node(v):
+    if v in graph:
+        print(v, "not present in the graph")
+    else:
+        graph[v] = []
+
+def add_edge(v1, v2):
+    if v1 not in graph:
+        print(v1, "not present in the graph")
+    elif v2 not in graph:
+        print(v2, "not present in the graph")
+    else:
+        graph[v1].append(v2)
+        graph[v2].append(v1)
+
+def dfs(node, visited, graph):
+    if node not in graph:
+        print(node, "not present in the graph")
+    if node not in visited:
+        print(node)
+        visited.add(node)
+        for i in graph[node]:
+            dfs(i, visited, graph)
+
+visited = set()
+graph = {}
+
+add_node("A")
+add_node("B")
+add_node("C")
+add_node("D")
+add_node("E")
+
+add_edge("A", "B")
+add_edge("A", "C")
+add_edge("A", "D")
+add_edge("B", "D")
+add_edge("B", "E")
+add_edge("C", "D")
+add_edge("D", "E")
+
+print(graph)
+dfs("A", visited, graph)
+```
+
+# Graph Coloring 
+
+```python
+colors = ["red", "blue", "green", "yellow", "black"]
+states = ["Andhra", "karnataka", "tamilnadu", "kerala"]
+neighbors = {}
+neighbors["Andhra"] = ["karnataka", "tamilnadu"]
+neighbors["karnataka"] = ["Andhra", "tamilnadu", "kerala"]
+neighbors["tamilnadu"] = ["Andhra", "kerala", "karnataka"]
+neighbors["kerala"] = ["karnataka", "tamilnadu"]
+
+col_of_s = {}
+
+def promising(state, color):
+    for neighbor in neighbors.get(state):
+        temp = col_of_s.get(neighbor)
+        if temp == color:
+            return False
+    return True
+
+def get_color(state):
+    for i in colors:
+        if promising(state, i):
+            return i
+    return None
+
+def main():
+    for i in states:
+        col_of_s [i] = get_color(i)
+    print(col_of_s)
+
+main()
+```
+
+# A* Search
+
+```python
+def astar(start, stop):
+    openl = set(start)
+    closel = set()
+    g = {}
+    parent = {}
+    g[start] = 0
+    parent[start] = start
+    
+    while len(openl) > 0:
+        n = None
+        for v in openl:
+            if n==None or g[v] + h(v) < g[n] + h(n): # h -> heuristic
+                n = v
+        if n==stop and graph_nodes[n] == None:
+            pass
+        else:
+            for m, weight in get_neigh(n):
+                if m not in openl and m not in closel:
+                    openl.add(m)
+                    parent[m] = n
+                    g[m] = g[n] + weight
+                else:
+                    if g[m] > g[n] + weight:
+                        g[m] = g[n] + weight
+                        parent[m] = n
+                        if m in closel:
+                            closel.remove(m)
+                            openl.add(m)
+        if n==None:
+            print("No path")
+            return None
+        if n==stop:
+            path = []
+            while parent[n] != n:
+                path.append(n)
+                n = parent[n]
+                print(path)
+            path.append(start)
+            path.reverse()
+            print(path)
+            return path
+        openl.remove(n)
+        closel.add(n)
+    print("No path ")
+    return None
+def get_neigh(v):
+    if v in graph_nodes:
+        return graph_nodes[v]
+    else:   
+        return None
+def h(n):
+    H_dist = {'A' : 11, 'B' : 6, 'C': 5, 'D': 7, 'E':3, 'F': 6, 'G':5, 'H':3, 'I':1, 'J':0}
+    return H_dist[n]
+
+
+graph_nodes = {'A': [('B', 6), ('F', 3)], 'B': [('A', 6), ('C', 3), ('D', 2)], 'C': [('B', 3), ('D', 1), ('E', 5)], 'D': [('B', 2), ('C', 1), ('E', 8)], 'E': [('C', 5), ('D', 8), ('I', 5), ('J', 5)], 'F': [('A', 3), ('G', 1), ('H', 7)], 'G': [('F', 1), ('I', 3)], 'H': [('F', 7), ('I', 2)], 'I': [('E', 5), ('G', 3), ('H', 2), ('J', 3)], 'J' : [('G', 5), ('H', 3)]}
+
+
+astar('A', 'J')
+```
+
+## Mid - 2 Part
+
 # Water Jug  
 
 ```python
