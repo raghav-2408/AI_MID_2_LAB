@@ -230,6 +230,51 @@ graph_nodes = {'A': [('B', 6), ('F', 3)], 'B': [('A', 6), ('C', 3), ('D', 2)], '
 
 astar('A', 'J')
 ```
+# Missionaries and Cannibals
+``` python
+def is_valid(states):
+    m1, c1, b, m2, c2 = states
+    return 0<=m1<=3 and 0<=c1<=3 and 0<=m2<=3 and 0<=c2<=3 and (m1==0 or m1>=c1) and (m2==0 or m2>=c2)
+# note  (m1==0 or m1>=c1) and (m2==0 or m2>=c2) -> dont add extra ()
+def gen_next(states):
+    m1, c1, b, m2, c2 = states
+    nextt = []
+    moves = [(1, 0),(2, 0), (0, 1), (0, 2), (1, 1)]
+    for dm, dc in moves:
+        if b==1:
+            new = (m1-dm, c1-dc, 0, m2+dm, c2+dc)
+        else:
+            new = (m1+dm, c1+dc, 1, m2-dm, c2-dc)
+        if is_valid(new):
+            nextt.append(new)
+    return nextt
+
+def solve(start_state):
+    queue = [(start_state, [start_state])]
+    while queue:
+        curr_stat, path = queue.pop(0) 
+        if curr_stat == (0, 0, 0, 3, 3):
+            return path
+        for i in gen_next(curr_stat):
+            if i not in path:
+                queue.append((i, path + [i]))
+    return None
+
+start_state = (3, 3, 1, 0, 0)
+
+solution = solve(start_state)
+
+if solution:
+    a = 0
+    for state in solution:
+        m1, c1, b, m2, c2 = state
+        print(f"{m1} missionaries, {c1} cannibals {'boat on left' if b==1 else 'boat on right'} {m2} missionaries, {c2} cannibals")
+        a += 1
+
+    print("cost : ", a)
+else:
+    print("No path")    
+```
 
 ## Mid - 2 Part
 
